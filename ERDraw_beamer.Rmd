@@ -1,0 +1,59 @@
+---
+title: ""
+author: "Author Name"
+date: "`r Sys.Date()`"
+header-includes: 
+       - \usepackage{tikz}
+       - \usetikzlibrary{positioning,shapes.multipart,shapes}
+output: beamer_presentation
+---
+
+### E-R Diagram
+
+\tikzset{basic/.style={
+        draw,
+        rectangle split,
+        rectangle split parts=2,
+        rectangle split part fill={blue!20,white},
+        minimum width=2.5cm,
+        text width=2cm,
+        align=left,
+        font=\itshape
+    },
+    Diamond/.style={ diamond, 
+                        draw, 
+                        shape aspect=2, 
+                        inner sep = 2pt,
+                        text centered,
+                        fill=blue!10!white,
+                        font=\itshape
+                      }}
+\begin{tikzpicture}
+\node[basic] (product) 
+{product
+\nodepart{second}
+\underline{product\_id}\\
+product\_name};
+\node[basic,right=2cm of product] (invoice) 
+{invoice
+\nodepart{second}
+\underline{invoice\_id}\\
+customer\_id\\
+invoice\_date};
+\draw (product) -- (invoice) ;
+\node[basic,right=2cm of invoice] (invoiceitem) 
+{invoiceitem
+\nodepart{second}
+\underline{invoice\_id}\\
+\underline{product\_id}\\
+price\\
+quantity};
+\draw (invoice) -- (invoiceitem) ;
+\node[basic,below=1.5cm of invoice] (customer) 
+{customer
+\nodepart{second}
+\underline{customer\_id}\\
+	country};
+\draw (invoice) -- (customer) ;
+\end{tikzpicture}
+
